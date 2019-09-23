@@ -14,9 +14,11 @@ class MakeMytripTest : BaseTest() {
     @Test
     fun `I want to do search flights based on valid criteria`() {
         onMakeMytripHomePage {
-            selectFromLocationFromList("BOM", "DEL")
-        } searchFlights {
-            filterFlightsOn(FLIGHT.NONSTOP.flightTiming,
+            selectSourceOfFlight("BOM")
+            selectDestination("DEL")
+            selectDate()
+        } search {
+            filterBy(FLIGHT.NONSTOP.flightTiming,
                     DEPARTURE.NIGHT.departureTime,
                     ARRRIVAL.NIGHT.arrivalTime,
                     AIRLINE.INDIGO.airlineName)
@@ -27,9 +29,11 @@ class MakeMytripTest : BaseTest() {
     @Test
     fun `I should not get flights for invalid search criteria`() {
         onMakeMytripHomePage {
-            selectFromLocationFromList("BOM", "DEL")
-        } searchFlights {
-            filterFlightsOn(FLIGHT.ONESTOP.flightTiming,
+            selectSourceOfFlight("BOM")
+            selectDestination("DEL")
+            selectDate()
+        } search {
+            filterBy(FLIGHT.ONESTOP.flightTiming,
                     DEPARTURE.MORNING.departureTime,
                     ARRRIVAL.MORNING.arrivalTime,
                     AIRLINE.INDIGO.airlineName)

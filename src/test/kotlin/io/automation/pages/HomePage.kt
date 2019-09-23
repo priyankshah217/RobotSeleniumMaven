@@ -12,16 +12,22 @@ class HomePage : BasePage() {
     private val dateLocator = By.cssSelector(".DayPicker-Month:nth-child(2) .DayPicker-Week:nth-child(4) > " +
             ".DayPicker-Day:nth-child(4) > .dateInnerCell")
 
-    fun selectFromLocationFromList(sourceStation: String, destinationStation: String) {
-        val sourceLocator = By.xpath("//div[text()='$sourceStation']")
-        val destinationLocator = By.xpath("//div[text()='$destinationStation']")
-        clickOn(fromCityLocator)
-        clickOn(getElement(locationDropDownLocator)?.findElement(sourceLocator))
-        clickOn(getElement(locationDropDownLocator)?.findElement(destinationLocator))
+    fun selectDate() {
         clickOn(getElement(dateLocator))
     }
 
-    infix fun searchFlights(function: SearchResultPage.() -> Unit): SearchResultPage {
+    fun selectSourceOfFlight(sourceStation: String) {
+        val sourceLocator = By.xpath("//div[text()='$sourceStation']")
+        clickOn(fromCityLocator)
+        clickOn(getElement(locationDropDownLocator)?.findElement(sourceLocator))
+    }
+
+    fun selectDestination(destinationStation: String) {
+        val destinationLocator = By.xpath("//div[text()='$destinationStation']")
+        clickOn(getElement(locationDropDownLocator)?.findElement(destinationLocator))
+    }
+
+    infix fun search(function: SearchResultPage.() -> Unit): SearchResultPage {
         clickOn(searchButtonLocator)
         return SearchResultPage().apply(function)
     }
