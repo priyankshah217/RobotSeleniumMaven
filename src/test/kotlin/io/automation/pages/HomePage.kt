@@ -3,7 +3,7 @@ package io.automation.pages
 import org.openqa.selenium.By
 import screens.BasePage
 
-fun selectFlightsFor(function: HomePage.() -> Unit) = HomePage().apply(function)
+fun searchFlight(function: HomePage.() -> Unit) = HomePage().apply(function)
 
 class HomePage : BasePage() {
     private val fromCityLocator = By.id("fromCity")
@@ -12,19 +12,27 @@ class HomePage : BasePage() {
     private val dateLocator = By.cssSelector(".DayPicker-Month:nth-child(2) .DayPicker-Week:nth-child(4) > " +
             ".DayPicker-Day:nth-child(4) > .dateInnerCell")
 
-    fun date() {
+    fun onAnyDate(): HomePage {
         clickOn(getElement(dateLocator))
+        return this
     }
 
-    fun from(sourceStation: String) {
+    fun from(sourceStation: String): HomePage {
         val sourceLocator = By.xpath("//div[text()='$sourceStation']")
         clickOn(fromCityLocator)
         clickOn(getElement(locationDropDownLocator)?.findElement(sourceLocator))
+        return this
     }
 
-    fun destination(destinationStation: String) {
+    fun to(destinationStation: String): HomePage {
         val destinationLocator = By.xpath("//div[text()='$destinationStation']")
         clickOn(getElement(locationDropDownLocator)?.findElement(destinationLocator))
+        return this
+    }
+
+    fun search(): SearchResultPage {
+        clickOn(searchButtonLocator)
+        return SearchResultPage()
     }
 
     infix fun search(function: SearchResultPage.() -> Unit): SearchResultPage {
