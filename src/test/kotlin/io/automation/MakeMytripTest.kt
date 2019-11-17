@@ -3,11 +3,11 @@ package io.automation
 import com.google.common.truth.Truth.assertThat
 import io.automation.base.BaseTest
 import io.automation.enums.AIRLINE
-import io.automation.enums.ARRRIVAL
+import io.automation.enums.ARRIVAL
 import io.automation.enums.DEPARTURE
 import io.automation.enums.FLIGHT
 import io.automation.pages.HomePage
-import io.automation.pages.searchFlight
+import io.automation.pages.searchingFlights
 import org.junit.jupiter.api.Test
 
 class MakeMytripTest : BaseTest() {
@@ -16,26 +16,26 @@ class MakeMytripTest : BaseTest() {
     fun `I want to do search flights based on valid criteria -- Traditional Page Chaining`() {
         val homePage = HomePage()
         homePage.from("BOM")
-        homePage.to("DEL")
-        homePage.onAnyDate()
+                .to("DEL")
+                .onAnyDate()
         val searchResultPage = homePage.search()
-        searchResultPage.filterBy(FLIGHT.NONSTOP.flightTiming,
+        searchResultPage.by(FLIGHT.NONSTOP.flightTiming,
                 DEPARTURE.NIGHT.departureTime,
-                ARRRIVAL.NIGHT.arrivalTime,
+                ARRIVAL.NIGHT.arrivalTime,
                 AIRLINE.INDIGO.airlineName)
         assertThat(searchResultPage.getAllFlights()?.size).isEqualTo(4)
     }
 
     @Test
     fun `I want to do search flights based on valid criteria -- Robot Pattern`() {
-        searchFlight {
+        searchingFlights {
             from("BOM")
             to("DEL")
             onAnyDate()
-        } search {
-            filterBy(FLIGHT.NONSTOP.flightTiming,
+        } filter {
+            by(FLIGHT.NONSTOP.flightTiming,
                     DEPARTURE.NIGHT.departureTime,
-                    ARRRIVAL.NIGHT.arrivalTime,
+                    ARRIVAL.NIGHT.arrivalTime,
                     AIRLINE.INDIGO.airlineName)
             assertThat(getAllFlights()?.size).isEqualTo(4)
         }
@@ -43,14 +43,14 @@ class MakeMytripTest : BaseTest() {
 
     @Test
     fun `I should not get flights for invalid search criteria`() {
-        searchFlight {
+        searchingFlights {
             from("BOM")
             to("DEL")
             onAnyDate()
-        } search {
-            filterBy(FLIGHT.ONESTOP.flightTiming,
+        } filter {
+            by(FLIGHT.ONESTOP.flightTiming,
                     DEPARTURE.MORNING.departureTime,
-                    ARRRIVAL.MORNING.arrivalTime,
+                    ARRIVAL.MORNING.arrivalTime,
                     AIRLINE.INDIGO.airlineName)
             assertThat(getAllFlights()?.size).isEqualTo(0)
         }

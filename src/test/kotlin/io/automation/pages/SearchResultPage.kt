@@ -12,7 +12,7 @@ class SearchResultPage : BasePage() {
         return getListOfElements(searchResultLocator)
     }
 
-    fun filterBy(flightType: String, departureOn: String, arrivalOn: String, airlines: String) {
+    fun by(flightType: String, departureOn: String, arrivalOn: String, airlines: String) {
 
         clickOn(By.xpath("//span[@data-filtertext='$flightType']"))
 

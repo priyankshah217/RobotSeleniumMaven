@@ -3,7 +3,7 @@ package io.automation.pages
 import org.openqa.selenium.By
 import screens.BasePage
 
-fun searchFlight(function: HomePage.() -> Unit) = HomePage().apply(function)
+fun searchingFlights(function: HomePage.() -> Unit) = HomePage().apply(function)
 
 class HomePage : BasePage() {
     private val fromCityLocator = By.id("fromCity")
@@ -35,7 +35,7 @@ class HomePage : BasePage() {
         return SearchResultPage()
     }
 
-    infix fun search(function: SearchResultPage.() -> Unit): SearchResultPage {
+    infix fun filter(function: SearchResultPage.() -> Unit): SearchResultPage {
         clickOn(searchButtonLocator)
         return SearchResultPage().apply(function)
     }
