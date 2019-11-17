@@ -1,0 +1,92 @@
+// HomePage.java
+package io.automation.pages;
+
+import kotlin.Metadata;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.Intrinsics;
+import org.jetbrains.annotations.NotNull;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import screens.BasePage;
+
+@Metadata(
+   mv = {1, 1, 16},
+   bv = {1, 0, 3},
+   k = 1,
+   d1 = {"\u00002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0005\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000e\n\u0002\b\u0005\u0018\u00002\u00020\u0001B\u0005¢\u0006\u0002\u0010\u0002J\"\u0010\t\u001a\u00020\n2\u0017\u0010\u000b\u001a\u0013\u0012\u0004\u0012\u00020\n\u0012\u0004\u0012\u00020\r0\f¢\u0006\u0002\b\u000eH\u0086\u0004J\u000e\u0010\u000f\u001a\u00020\u00002\u0006\u0010\u0010\u001a\u00020\u0011J\u0006\u0010\u0012\u001a\u00020\u0000J\u0006\u0010\u0013\u001a\u00020\nJ\u000e\u0010\u0014\u001a\u00020\u00002\u0006\u0010\u0015\u001a\u00020\u0011R\u0016\u0010\u0003\u001a\n \u0005*\u0004\u0018\u00010\u00040\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u0016\u0010\u0006\u001a\n \u0005*\u0004\u0018\u00010\u00040\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u0016\u0010\u0007\u001a\n \u0005*\u0004\u0018\u00010\u00040\u0004X\u0082\u0004¢\u0006\u0002\n\u0000R\u0016\u0010\b\u001a\n \u0005*\u0004\u0018\u00010\u00040\u0004X\u0082\u0004¢\u0006\u0002\n\u0000¨\u0006\u0016"},
+   d2 = {"Lio/automation/pages/HomePage;", "Lscreens/BasePage;", "()V", "dateLocator", "Lorg/openqa/selenium/By;", "kotlin.jvm.PlatformType", "fromCityLocator", "locationDropDownLocator", "searchButtonLocator", "filter", "Lio/automation/pages/SearchResultPage;", "function", "Lkotlin/Function1;", "", "Lkotlin/ExtensionFunctionType;", "from", "sourceStation", "", "onAnyDate", "search", "to", "destinationStation", "RobotSeleniumMaven"}
+)
+public final class HomePage extends BasePage {
+   private final By fromCityLocator = By.id("fromCity");
+   private final By locationDropDownLocator = By.cssSelector("#react-autowhatever-1 > div > ul");
+   private final By searchButtonLocator = By.cssSelector(".primaryBtn");
+   private final By dateLocator = By.cssSelector(".DayPicker-Month:nth-child(2) .DayPicker-Week:nth-child(4) > .DayPicker-Day:nth-child(4) > .dateInnerCell");
+
+   @NotNull
+   public final HomePage onAnyDate() {
+      this.clickOn(this.getElement(this.dateLocator));
+      return this;
+   }
+
+   @NotNull
+   public final HomePage from(@NotNull String sourceStation) {
+      Intrinsics.checkParameterIsNotNull(sourceStation, "sourceStation");
+      By sourceLocator = By.xpath("//div[text()='" + sourceStation + "']");
+      this.clickOn(this.fromCityLocator);
+      WebElement var10001 = this.getElement(this.locationDropDownLocator);
+      this.clickOn(var10001 != null ? var10001.findElement(sourceLocator) : null);
+      return this;
+   }
+
+   @NotNull
+   public final HomePage to(@NotNull String destinationStation) {
+      Intrinsics.checkParameterIsNotNull(destinationStation, "destinationStation");
+      By destinationLocator = By.xpath("//div[text()='" + destinationStation + "']");
+      WebElement var10001 = this.getElement(this.locationDropDownLocator);
+      this.clickOn(var10001 != null ? var10001.findElement(destinationLocator) : null);
+      return this;
+   }
+
+   @NotNull
+   public final SearchResultPage search() {
+      this.clickOn(this.searchButtonLocator);
+      return new SearchResultPage();
+   }
+
+   @NotNull
+   public final SearchResultPage filter(@NotNull Function1 function) {
+      Intrinsics.checkParameterIsNotNull(function, "function");
+      this.clickOn(this.searchButtonLocator);
+      SearchResultPage var2 = new SearchResultPage();
+      boolean var3 = false;
+      boolean var4 = false;
+      function.invoke(var2);
+      return var2;
+   }
+}
+// HomePageKt.java
+package io.automation.pages;
+
+import kotlin.Metadata;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.Intrinsics;
+import org.jetbrains.annotations.NotNull;
+
+@Metadata(
+   mv = {1, 1, 16},
+   bv = {1, 0, 3},
+   k = 2,
+   d1 = {"\u0000\u0016\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\u0018\u0002\n\u0000\u001a\u001f\u0010\u0000\u001a\u00020\u00012\u0017\u0010\u0002\u001a\u0013\u0012\u0004\u0012\u00020\u0001\u0012\u0004\u0012\u00020\u00040\u0003¢\u0006\u0002\b\u0005¨\u0006\u0006"},
+   d2 = {"searchingFlights", "Lio/automation/pages/HomePage;", "function", "Lkotlin/Function1;", "", "Lkotlin/ExtensionFunctionType;", "RobotSeleniumMaven"}
+)
+public final class HomePageKt {
+   @NotNull
+   public static final HomePage searchingFlights(@NotNull Function1 function) {
+      Intrinsics.checkParameterIsNotNull(function, "function");
+      HomePage var1 = new HomePage();
+      boolean var2 = false;
+      boolean var3 = false;
+      function.invoke(var1);
+      return var1;
+   }
+}
