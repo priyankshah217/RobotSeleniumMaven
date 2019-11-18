@@ -7,4 +7,7 @@ pipeline {
       }
     }
   }
+  environment {
+    ABC = 'Priyank'
+  }
 }
