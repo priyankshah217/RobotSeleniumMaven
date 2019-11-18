@@ -13,6 +13,10 @@ pipeline {
     }
   }
   environment {
-    ABC = 'Priyank'
+    ABC = getRandomString()
   }
+}
+
+def getRandomString(){
+  return "Priyank from Method"
 }
