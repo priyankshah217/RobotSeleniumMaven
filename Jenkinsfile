@@ -6,9 +6,9 @@ pipeline {
         git(url: 'https://github.com/priyankshah217/RobotSeleniumMaven.git', branch: 'master')
       }
     }
-    stage('Run Test') {
+    stage('Print Env') {
       steps {
-        sh 'mvn clean test'
+        sh 'echo $ABC'
       }
     }
   }
