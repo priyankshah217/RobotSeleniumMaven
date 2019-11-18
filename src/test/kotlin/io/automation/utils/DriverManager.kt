@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver
 
 object DriverManager {
     @JvmStatic
-    private var driver: WebDriver? = null
+    private var threadLocal: ThreadLocal<RemoteWebDriver> = ThreadLocal()
 
     fun getDriver(): WebDriver? {
         var browserName: String?
@@ -19,17 +19,15 @@ object DriverManager {
             val properties = PropertyReader.readPropertiesFromFile("automation-config.properties")
             browserName = properties.getProperty("browser.name").toLowerCase()
         }
-        return when {
-            driver == null -> {
-                driver = getDriverType(browserName)
-                driver
-            }
-            (driver as RemoteWebDriver).sessionId == null -> {
-                driver = getDriverType(browserName)
-                driver
-            }
-            else -> driver
+        if (threadLocal.get() == null) {
+            threadLocal.set(getDriverType(browserName))
         }
+        return threadLocal.get()
+    }
+
+    fun clearDriver() {
+        getDriver()?.quit()
+        threadLocal.remove()
     }
 
     private fun getDriverType(browserName: String?): RemoteWebDriver? {

@@ -16,6 +16,6 @@ open class BaseTest {
 
     @AfterEach
     fun tearDown() {
-        DriverManager.getDriver()?.quit()
+        DriverManager.clearDriver()
     }
 }

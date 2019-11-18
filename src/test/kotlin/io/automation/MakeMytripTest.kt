@@ -9,7 +9,10 @@ import io.automation.enums.FLIGHT
 import io.automation.pages.HomePage
 import io.automation.pages.searchingFlights
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode
 
+@Execution(ExecutionMode.CONCURRENT)
 class MakeMytripTest : BaseTest() {
 
     @Test
