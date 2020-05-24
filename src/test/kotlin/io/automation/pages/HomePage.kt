@@ -1,7 +1,8 @@
 package io.automation.pages
 
+import io.automation.base.BasePage
 import org.openqa.selenium.By
-import screens.BasePage
+
 
 fun searchingFlights(function: HomePage.() -> Unit) = HomePage().apply(function)
 
@@ -20,13 +21,13 @@ class HomePage : BasePage() {
     fun from(sourceStation: String): HomePage {
         val sourceLocator = By.xpath("//div[text()='$sourceStation']")
         clickOn(fromCityLocator)
-        clickOn(getElement(locationDropDownLocator)?.findElement(sourceLocator))
+        clickOn(getElement(locationDropDownLocator).findElement(sourceLocator))
         return this
     }
 
     fun to(destinationStation: String): HomePage {
         val destinationLocator = By.xpath("//div[text()='$destinationStation']")
-        clickOn(getElement(locationDropDownLocator)?.findElement(destinationLocator))
+        clickOn(getElement(locationDropDownLocator).findElement(destinationLocator))
         return this
     }
 

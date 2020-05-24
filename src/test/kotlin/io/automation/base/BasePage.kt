@@ -1,4 +1,4 @@
-package screens
+package io.automation.base
 
 import io.automation.utils.DriverManager
 import org.openqa.selenium.By
@@ -11,33 +11,35 @@ import java.time.Duration
 
 abstract class BasePage {
 
-    fun clickOn(webElement: WebElement?) {
-        getElement(webElement)?.click()
+    inline infix fun <reified T> T.and(function: T.() -> Unit) = this.apply(function)
+
+    fun clickOn(webElement: WebElement) {
+        getElement(webElement).click()
     }
 
-    private fun getElement(webElement: WebElement?): WebElement? {
+    private fun getElement(webElement: WebElement): WebElement {
         val wait = getWebDriverWait()
         return wait.until(ExpectedConditions.elementToBeClickable(webElement))
     }
 
-    fun clickOn(by: By?) {
-        getElement(by)?.click()
+    fun clickOn(by: By) {
+        getElement(by).click()
     }
 
-    fun enterText(by: By?, value: String) {
+    fun enterText(by: By, value: String) {
         val webElement = getElement(by)
-        webElement?.clear()
-        webElement?.sendKeys(value)
+        webElement.clear()
+        webElement.sendKeys(value)
     }
 
-    fun getElement(by: By?): WebElement? {
+    fun getElement(by: By): WebElement {
         val wait = getWebDriverWait()
-        return wait.until { webDriver: WebDriver? -> webDriver?.findElement(by) }
+        return wait.until { it.findElement(by) }
     }
 
-    fun getListOfElements(by: By?): MutableList<WebElement>? {
+    fun getListOfElements(by: By): MutableList<WebElement> {
         val wait = getWebDriverWait()
-        return wait.until { webDriver: WebDriver? -> webDriver?.findElements(by) }
+        return wait.until { it.findElements(by) }
     }
 
     private fun getWebDriverWait(): WebDriverWait {
@@ -45,12 +47,12 @@ abstract class BasePage {
         return WebDriverWait(driver, Duration.ofSeconds(30))
     }
 
-    fun elementIsPresent(by: By?): Boolean? {
-        return getElement(by) != null
+    fun elementIsPresent(by: By): Boolean {
+        return getElement(by) == null
     }
 
-    fun elementIsNotPresent(by: By?): Boolean? {
-        return !elementIsPresent(by)!!
+    fun elementIsNotPresent(by: By): Boolean {
+        return elementIsPresent(by)
     }
 
 }
