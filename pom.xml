@@ -17,7 +17,7 @@
         <kotlin.code.style>official</kotlin.code.style>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <truth.version>1.0</truth.version>
-        <guava.version>28.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <selenium.version>4.0.0-alpha-2</selenium.version>
         <maven-surefire.version>3.0.0-M3</maven-surefire.version>
     </properties>
